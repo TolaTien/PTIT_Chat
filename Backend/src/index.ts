@@ -24,16 +24,15 @@ app.use(cors({
 app.use(cookieParser());
 app.use("/api", Routers);
 
-
 app.get('/', (req: Request, res: Response) =>{
     res.send("Hello PTIT")
 }) 
 
 app.use(express.static(frontendDistPath));
 
-app.get("*", (req: Request, res: Response) => {
-    if (req.path.startsWith("/api")) {
-        return res.status(404).end();
+app.use((req: Request, res: Response, next) => {
+    if (req.path.startsWith("/api") || req.method !== "GET") {
+        return next();
     }
 
     res.sendFile(path.join(frontendDistPath, "index.html"));
