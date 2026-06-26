@@ -5,7 +5,7 @@ import { axiosInstance } from "../lib/axios";
 import { useChatStore } from "./useChatStore";
 import type { AuthStoreState, LoginPayload, SignupPayload, User, FriendRequest } from "../types";
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : window.location.origin;
 
 const getErrorMessage = (error: unknown) =>
   (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
